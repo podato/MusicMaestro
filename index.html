@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3fa"><title>Music Maestro — Your music, a little mischief.</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header><a class="brand" href="./"><span class="brand-icon">♬</span> music maestro<span class="brand-dot">.</span></a><span class="local"><i></i> Your library. Anywhere.</span></header>
+  <main>
+    <div class="intro"><div><h1>Your music.<br>A little mischief.</h1><p>Your music library, ready to stream. Go on, play around.</p></div><span class="handnote">Good music. Questionable speed.<svg viewBox="0 0 100 60" aria-hidden="true"><path d="M10 4 Q85 0 65 47 M52 36 L65 49 L77 37"/></svg></span></div>
+    <div class="workspace">
+      <section class="library" aria-labelledby="library-title"><div class="section-heading"><h2 id="library-title">Your collection <span id="count">0</span></h2><span class="tiny-icon">♫</span></div>
+        <button class="folder-button" id="refresh">↻ Refresh library</button>
+        <p class="file-hint">MP3, WAV, FLAC & more <span>·</span> Streamed from your library</p>
+        <label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Find your next track…" aria-label="Search tracks"></label>
+        <div class="list-heading"><span id="folder-name">Hosted library</span><span id="library-meta">Connecting…</span></div>
+        <div id="tracks" class="tracks"><p class="no-results">Loading your music library…</p></div>
+        <div class="library-footer"><span>⌁</span> One music library. Play from any device.</div>
+      </section>
+      <section class="player" aria-label="Music player"><div class="player-top"><span><i id="playing-light"></i><span id="play-state">Ready to spin</span></span><span class="edition">MM—001</span></div>
+        <div class="turntable"><div class="disc" id="disc"><div class="disc-label"><span>music<br><b>maestro</b></span><div class="spindle"></div><small>GOOD VIBRATIONS</small></div></div><div class="tonearm"><div></div></div><span class="spark spark-one">✳</span><span class="spark spark-two">✧</span></div>
+        <div class="track-info"><h2 id="track-title">Your next favorite is waiting.</h2><p id="track-subtitle">Pick a track and make some noise.</p></div>
+        <div class="timeline"><input id="seek" type="range" min="0" max="100" value="0" step="0.1" aria-label="Seek playback" disabled><div><span id="elapsed">0:00</span><span id="duration">0:00</span></div></div>
+        <div class="transport"><button id="shuffle" class="icon-button" aria-label="Shuffle" aria-pressed="false" title="Shuffle">⤨</button><button id="previous" class="icon-button skip" aria-label="Previous track" title="Previous track">◀Ⅰ</button><button id="play" class="play-button" aria-label="Play" disabled><span>▶</span></button><button id="next" class="icon-button skip" aria-label="Next track" title="Next track">Ⅰ▶</button><button id="repeat" class="icon-button" aria-label="Repeat track" aria-pressed="false" title="Repeat track">↻</button></div>
+        <div class="volume"><button id="mute" class="icon-button" aria-label="Mute" aria-pressed="false">♪</button><input id="volume" type="range" min="0" max="1" step="0.01" value="0.75" aria-label="Volume"><span id="volume-value">75%</span></div>
+      </section>
+    </div>
+    <section class="playground" aria-labelledby="playground-title"><div class="playground-heading"><div><h2 id="playground-title">The fun stuff <span>✦</span></h2><p>Same song. Entirely different energy.</p></div><button id="reset" class="text-button">↺ Reset to normal</button></div><div class="effects">
+      <button class="effect selected" data-mode="normal" aria-pressed="true"><span class="effect-emoji">😌</span><span><b>Just vibing</b><small>The original recipe</small></span><span class="effect-check">✓</span></button>
+      <button class="effect" data-mode="chipmunk" aria-pressed="false"><span class="effect-emoji">🐿️</span><span><b>Chipmunk</b><small>Tiny voice. Big feelings.</small></span><span class="effect-check">✓</span></button>
+      <button class="effect" data-mode="slow" aria-pressed="false"><span class="effect-emoji">🫠</span><span><b>Slow-mo</b><small>Time is a suggestion</small></span><span class="effect-check">✓</span></button>
+      <button class="effect" data-mode="caffeine" aria-pressed="false"><span class="effect-emoji">⚡</span><span><b>Too much coffee</b><small>Places to be. Beats to beat.</small></span><span class="effect-check">✓</span></button>
+      <button class="effect" data-mode="giant" aria-pressed="false"><span class="effect-emoji">👹</span><span><b>Fee-fi-fo-fum</b><small>Big voice. Tiny speakers.</small></span><span class="effect-check">✓</span></button>
+      <button class="effect" data-mode="helium" aria-pressed="false"><span class="effect-emoji">🎈</span><span><b>Helium incident</b><small>Someone ate the balloon</small></span><span class="effect-check">✓</span></button>
+      <button class="effect" data-mode="wobble" aria-pressed="false"><span class="effect-emoji">🫨</span><span><b>Wobbly turntable</b><small>Pitch goes on a joyride</small></span><span class="effect-check">✓</span></button>
+      <button class="effect" data-mode="broken" aria-pressed="false"><span class="effect-emoji">🔁</span><span><b>Broken record</b><small>The same second. Forever.</small></span><span class="effect-check">✓</span></button>
+    </div><div class="speed-row"><label for="speed">Set your own tempo</label><span>Sloth</span><input id="speed" type="range" min="0.5" max="2" step="0.05" value="1" aria-label="Playback speed"><span>Zoomies</span><output id="speed-value">1.00×</output><label class="pitch"><input id="pitch" type="checkbox" checked> Keep original pitch</label></div></section>
+    <p id="message" class="message" role="status" aria-live="polite"></p>
+    <footer><span>Made for listening. And a little messing around.</span><span><kbd>space</kbd> play / pause</span></footer>
+  </main><audio id="audio" preload="metadata"></audio><script type="module" src="app.js"></script>
+</body></html>
