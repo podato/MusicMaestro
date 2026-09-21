@@ -31,6 +31,25 @@ The app has no built-in login. If your web dashboard is private, put the entire 
 
 MP3, WAV, FLAC, M4A, OGG, OPUS, AAC, AIFF, and WebM are listed; playback depends on browser codec support. Fonts load from Google Fonts with system fallbacks.
 
+## Container and GHCR
+
+The GitHub Actions workflow tests and builds on pushes and pull requests. It publishes `ghcr.io/<owner>/<repo>` on default-branch pushes, `v*` tags, or a manual run on those refs. Default-branch builds get `latest`; version tags keep their name (for example `v1.0.0`); published builds also get a `sha-...` tag. Pull requests and other branches never publish.
+
+Publishing uses the repository's automatic `GITHUB_TOKEN` with `packages: write`; no extra registry secret is needed. This follows [GitHub's GHCR publishing workflow](https://docs.github.com/en/actions/tutorials/publish-packages/publish-docker-images). The image targets Linux amd64 and runs as the non-root `node` user. Music files and local secrets are excluded from the image.
+
+After the first workflow run, replace `<owner>/<repo>` with the lowercase repository name:
+
+```sh
+docker run -d --name music-maestro --restart unless-stopped \
+  -p 127.0.0.1:5173:5173 \
+  --mount type=bind,src=/absolute/path/to/music,dst=/music,readonly \
+  ghcr.io/<owner>/<repo>:latest
+```
+
+The mounted directory must be readable by the container user (UID 1000). Point your dashboard proxy at port 5173. New GHCR packages are private by default; make the package public or authenticate with `docker login ghcr.io` before pulling it.
+
+To build locally: `docker build -t music-maestro .`.
+
 ## Checks
 
 ```sh
